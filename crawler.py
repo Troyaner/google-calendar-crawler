@@ -50,14 +50,8 @@ class Crawler():
             comment = ' '.join(splitTitle)
             projectId, storyNo = identification.split(':')
 
-            myEvents.append({"projectId": projectId, "storyNo": storyNo, "comment": comment, "duration": duration})
+            myEvents.append({"projectId": projectId, "storyNo": storyNo, "comment": comment, "start": start, "end": end, "duration": duration})
 
-        for event in myEvents:
-            print("ProjectId: " + event['projectId'])
-            print("storyNo: " + event['storyNo'])
-            print("comment: " + event['comment'])
-            print("duration: " + str(event['duration']))
-            print("")
         return myEvents
 
  
@@ -67,7 +61,7 @@ class Crawler():
 
         endTime = datetime.datetime.utcnow().replace(hour=23, minute=59, second=59)
         endTime = endTime.isoformat() + 'Z'
-        self.getEvents(calendarId, startTime, endTime)
+        return self.getEvents(calendarId, startTime, endTime)
 
 
     def getWeek(self, calendarId, week=0, year=datetime.date.year):
@@ -82,7 +76,7 @@ class Crawler():
             startTime = startTime.isoformat() + 'Z'
             endTime = endTime.isoformat() + 'Z'
 
-            self.getEvents(calendarId, startTime, endTime)
+            return self.getEvents(calendarId, startTime, endTime)
         else: 
             days = week * 7
             endTime = datetime.datetime.utcnow().replace(month=1, day=1, hour=23, minute=59)
@@ -91,7 +85,7 @@ class Crawler():
             startTime = startTime.isoformat() + 'Z'
             endTime = endTime.isoformat() + 'Z'
 
-            self.getEvents(calendarId, startTime, endTime)
+            return self.getEvents(calendarId, startTime, endTime)
             
 
 
@@ -104,7 +98,7 @@ class Crawler():
         endTime = datetime.datetime.utcnow().replace(year=year, month=month, day=noOfDays, hour=23, minute=59, second=59)
         endTime = endTime.isoformat() + 'Z'
 
-        self.getEvents(calendarId, startTime, endTime)
+        return self.getEvents(calendarId, startTime, endTime)
 
 
     def getYear(self, calendarId, year=datetime.date.today().year):
@@ -114,7 +108,7 @@ class Crawler():
         endTime = datetime.datetime.utcnow().replace(year=year, month=12, day=31, hour=23, minute=59, second=59)
         endTime = endTime.isoformat() + 'Z'
         
-        self.getEvents(calendarId, startTime, endTime)
+        return self.getEvents(calendarId, startTime, endTime)
 
 
     def getTimeFrame(self, calendarId, startYear, startMonth, startDay, startHour, startMinute, startSecond, 
@@ -128,10 +122,5 @@ class Crawler():
                     hour=endHour, minute=endMinute, second=endMinute)
         endTime = endTime.isoformat() + 'Z'
 
-        self.getEvents(calendarId, startTime, endTime)
+        return self.getEvents(calendarId, startTime, endTime)
 
-
-calId = 'o1q2lvjkliar23irk4bv34pf60@group.calendar.google.com'
-
-crawler = Crawler()
-crawler.getWeek(calId)
