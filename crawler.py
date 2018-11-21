@@ -42,6 +42,7 @@ class Crawler():
             startDate = dateutil.parser.parse(start)
             endDate = dateutil.parser.parse(end)    
             duration = endDate - startDate
+            duration_in_minutes = (int) (duration / datetime.timedelta(minutes=1))
 
             title = event['summary']
 
@@ -50,7 +51,7 @@ class Crawler():
             comment = ' '.join(splitTitle)
             projectId, storyNo = identification.split(':')
 
-            myEvents.append({"projectId": projectId, "storyNo": storyNo, "comment": comment, "start": start, "end": end, "duration": duration})
+            myEvents.append({"projectId": projectId, "storyNo": storyNo, "comment": comment, "start": start, "end": end, "duration": duration_in_minutes})
 
         return myEvents
 
